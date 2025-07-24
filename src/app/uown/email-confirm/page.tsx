@@ -6,10 +6,18 @@ import { Container, Title, Text, Alert, Button, Center, Image } from "@mantine/c
 import { IconCheck, IconAlertCircle } from "@tabler/icons-react";
 
 import uOwnLogo from "@assets/svgs/u-own-logo.svg";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 /* ========================================================================= */
 export default function EmailConfirmPage() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <EmailConfirmContent />
+    </Suspense>
+  );
+}
+
+function EmailConfirmContent() {
   const searchParams = useSearchParams();
 
   const error = searchParams.get("error");
