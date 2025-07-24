@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import {
-  ColorSchemeScript,
-  mantineHtmlProps,
-  MantineProvider,
-} from "@mantine/core";
+import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
 import theme from "./theme";
 import "./globals.css";
 
@@ -21,7 +17,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ColorSchemeScript />
       </head>
       <body className="antialiased">
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider withGlobalClasses theme={theme}>
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );
