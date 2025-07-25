@@ -9,6 +9,7 @@ import uOwnLogo from "@assets/svgs/u-own-logo.svg";
 import { Suspense, useEffect, useState } from "react";
 
 /* ========================================================================= */
+///
 export default function EmailConfirmPage() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
@@ -17,6 +18,7 @@ export default function EmailConfirmPage() {
   );
 }
 
+///
 function EmailConfirmContent() {
   const searchParams = useSearchParams();
 

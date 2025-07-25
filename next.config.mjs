@@ -1,16 +1,18 @@
-const isProd = process.env.NODE_ENV === "production";
+// const isProd = process.env.NODE_ENV === "production";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable static export
+  output: "export",
   experimental: {
     optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
   },
-  basePath: isProd ? "/web-portal" : "",
-  assetPrefix: isProd ? "/web-portal/" : "",
+  // Set base path. This is the slug of your GitHub repository.
+  basePath: "/web-portal",
+  // Disable server-based image optimization. Next.js does not support dynamic features with static exports.
   images: {
     unoptimized: true,
   },
-  output: "export", // Very important for GitHub Pages
 };
 
 export default nextConfig;

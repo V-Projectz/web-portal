@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "next build && gh-pages -d out",
+    "static": "next build && touch ./out/.nojekyll",
+    "serve": "npm run static && npx serve out",
+    "deploy": "npm run static && gh-pages -d out --nojekyll",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write ."

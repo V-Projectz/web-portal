@@ -5,6 +5,7 @@ This repository hosts public-facing pages for apps under the `V-Projectz` organi
 ## 🧾 Purpose
 
 Used for:
+
 - Email confirmation redirects (e.g. Supabase auth)
 - Password reset pages
 - Terms & Conditions / Privacy Policy
@@ -15,24 +16,22 @@ Used for:
 Hosted at:  
 **https://v-projectz.github.io/web-portal/**
 
-You can use sub-paths like:  
-- `/confirm-email`
-- `/reset-password`
-- `/terms`
-- `/privacy`
+## 🧪 Testing
 
-## 🛠️ How It Works
+Run `npm run dev`
 
-This is a static website hosted via GitHub Pages.  
-You can update pages using plain HTML/CSS/JS or frameworks like:
-- [SvelteKit](https://kit.svelte.dev/)
-- [Vite](https://vitejs.dev/)
-- [Astro](https://astro.build/)
-- or just pure HTML
+- Run this for live development with hot reload.
+
+Run `npm run serve`
+
+- Run this to test static site before deploying to GitHub Pages
 
 ## 🚀 Deploy
 
-GitHub Pages auto-deploys from the `main` branch (or `docs` if configured).  
+Run `npm run deploy`.
+
+- When you done with everything, run this command to deploy to GitHub Pages.
+- Required to review on GitHub to make it live.
 
 ## 📄 License
 
