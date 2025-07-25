@@ -8,7 +8,7 @@ const nextConfig = {
     optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
   },
   // Set base path. This is the slug of your GitHub repository.
-  basePath: "",
+  basePath: "/web-portal",
   // Disable server-based image optimization. Next.js does not support dynamic features with static exports.
   images: {
     unoptimized: true,
