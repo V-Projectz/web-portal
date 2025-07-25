@@ -22,16 +22,9 @@ Run `npm run dev`
 
 - Run this for live development with hot reload.
 
-Run `npm run serve`
-
-- Run this to test static site before deploying to GitHub Pages
-
 ## 🚀 Deploy
 
-Run `npm run deploy`.
-
-- When you done with everything, run this command to deploy to GitHub Pages.
-- Required to review on GitHub to make it live.
+- To deploy, just commit and push to the `main` branch.
 
 ## 📄 License
 
