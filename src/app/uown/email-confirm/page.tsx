@@ -22,9 +22,9 @@ export default function EmailConfirmPage() {
 function EmailConfirmContent() {
   const searchParams = useSearchParams();
 
-  const error = searchParams.get("error");
-  const errorCode = searchParams.get("error_code");
-  const errorDescription = searchParams.get("error_description");
+  const error = searchParams?.get("error");
+  const errorCode = searchParams?.get("error_code");
+  const errorDescription = searchParams?.get("error_description");
   const success = !error; // Assume success if no error param
 
   //
