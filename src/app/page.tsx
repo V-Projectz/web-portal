@@ -16,17 +16,16 @@ export default function Root() {
         <Text className="font-bold">Welcome to <b className="font-extrabold">V-Projectz Web Portal</b>!</Text>
       </AppShellHeader>
       <AppShellMain>
-        <Title className="text-center">
+        <Title className="flex items-center justify-center">
           <Text className="mr-2" inherit component="span" variant="gradient" gradient={{ from: "green", to: "gold" }}>
             V-Projectz
           </Text>
-          Web Portal
+          <Text inherit>Web Portal</Text>
         </Title>
         <Text
-          className="text-center text-gray-700 dark:text-gray-300 max-w-[500px] mx-auto mt-xl"
+          className="text-center text-gray-700 dark:text-gray-300 mx-auto mt-xl"
           ta="center"
           size="lg"
-          maw={"70%"}
           mx="auto"
           mt="xl"
         >
