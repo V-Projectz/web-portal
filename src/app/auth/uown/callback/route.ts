@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/uown/server";
 
 ///
-export async function handler(request: Request) {
+async function handler(request: Request) {
   try {
     const { origin } = new URL(request.url);
     let code: string | null = null;
