@@ -40,3 +40,4 @@ export const POST = handler;
 export const PUT = handler;     // Won't usually happen, but safe
 export const DELETE = handler;  // Won't usually happen, but safe
 export const PATCH = handler;   // Won't usually happen, but safe
+export const OPTIONS = () => NextResponse.json({}, { status: 200 });
