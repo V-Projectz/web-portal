@@ -2,35 +2,41 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/uown/server";
 
 ///
-export async function GET(request: Request) {
-  return handleCallback(request);
-}
-
-///
-export async function POST(request: Request) {
-  return handleCallback(request);
-}
-
-///
-async function handleCallback(request: Request) {
+export async function handler(request: Request) {
   try {
-    const { searchParams, origin } = new URL(request.url);
-    // Get the code from authenticator callback
-    const code = searchParams.get("code");
-    if (!code) throw new Error("Missing code");
-    // Next URL after login
-    let next = searchParams.get("next") ?? "/";
+    const { origin } = new URL(request.url);
+    let code: string | null = null;
+    let next = "/";
+    // Read "code" depending on method
+    if (request.method === "POST") {
+      const body = await request.formData();
+      code = body.get("code") as string | null;
+      next = (body.get("next") as string) ?? "/";
+    } else if (request.method === "GET") {
+      const url = new URL(request.url);
+      code = url.searchParams.get("code");
+      next = url.searchParams.get("next") ?? "/";
+    }
+    //
     if (!next.startsWith("/")) next = "/";
     //
+    if (!code) throw new Error("Missing code from OAuth provider");
+    // Exchange code for Supabase session
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (error) throw error;
-    // Redirect to next page using absolute URL
+    // Redirect user after login
     return NextResponse.redirect(new URL(next, origin));
   } catch (err) {
-    console.error("Auth callback error, ", err);
-    // Always use absolute URL in App Router
+    console.error("OAuth callback error:", err);
     const { origin } = new URL(request.url);
     return NextResponse.redirect(new URL("/auth/uown/auth-code-error", origin));
   }
 }
+
+/// Handle all HTTP methods with the same handler
+export const GET = handler;
+export const POST = handler;
+export const PUT = handler;     // Won't usually happen, but safe
+export const DELETE = handler;  // Won't usually happen, but safe
+export const PATCH = handler;   // Won't usually happen, but safe
