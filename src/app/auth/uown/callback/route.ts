@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/uown/server";
-import { cookies } from "next/headers";
 
 ///
 async function handler(request: Request) {
@@ -23,16 +22,14 @@ async function handler(request: Request) {
     if (!code) throw new Error("Missing code from OAuth provider");
     // Exchange code for Supabase session
     const supabase = await createClient();
-    (await cookies()).getAll(); // Force cookie evaluation before exchange
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    (await cookies()).getAll(); // Force re-read to allow Supabase to clear the verifier cookie
     if (error) throw error;
     // Redirect user after login
     return NextResponse.redirect(new URL(next, origin));
   } catch (err) {
     console.error("OAuth callback error:", err);
     const { origin } = new URL(request.url);
-    return NextResponse.redirect(new URL("/auth/uown/auth-code-error", origin));
+    return NextResponse.redirect(new URL("/auth/uown/auth-code-error", origin), { status: 303 }); // 303 to force GET
   }
 }
 
