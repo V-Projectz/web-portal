@@ -2,15 +2,10 @@
  * Set ENV here: https://vercel.com/vprojectz-dev/web-portal/settings/environments/production
  */
 import { App } from "@octokit/app";
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { NextResponse } from "next/server";
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  //
-  if (req.method !== "POST") {
-    return res.status(405).end();
-  }
-  //
-  const { title, body, userId } = req.body;
+export async function POST(req: Request) {
+  const { title, body, userId } = await req.json();
   const app = new App({
     appId: process.env.UOWN_GITHUB_FEEDBACK_APP_ID!,
     privateKey: process.env.UOWN_GITHUB_FEEDBACK_APP_PRIVATE_KEY!,
@@ -27,7 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     labels: [`user:${userId}`],
   });
   //
-  res.json({
+  return NextResponse.json({
     url: issue.data.html_url,
     number: issue.data.number,
   });
