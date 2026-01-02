@@ -19,7 +19,6 @@ async function handler(request: Request) {
     }
     //
     if (!next.startsWith("/")) next = "/";
-    //
     if (!code) throw new Error("Missing code from OAuth provider");
     // Exchange code for Supabase session
     const supabase = await createClient();
@@ -30,7 +29,7 @@ async function handler(request: Request) {
   } catch (err) {
     console.error("OAuth callback error:", err);
     const { origin } = new URL(request.url);
-    return NextResponse.redirect(new URL("/auth/uown/auth-code-error", origin));
+    return NextResponse.redirect(new URL("/auth/uown/auth-code-error", origin), { status: 303 }); // 303 to force GET
   }
 }
 
