@@ -12,6 +12,11 @@ export async function GET(req: Request) {
   if (!userId) {
     return Response.json({ error: "Missing userId" }, { status: 400 });
   }
+  // App key protection
+  const appKey = req.headers.get("x-uown-app-key");
+  if (appKey !== process.env.UOWN_APP_KEY) {
+    return Response.json({ error: "Unauthorized" }, { status: 401});
+  }
   //
   const app = new App({
     appId: process.env.UOWN_GITHUB_FEEDBACK_APP_ID!,
