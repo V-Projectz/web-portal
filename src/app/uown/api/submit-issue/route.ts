@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       ${res.body}
       ## 📷 Screenshots / Images
       ${(res.screenshotUrls ?? []).length > 0 ? (res.screenshotUrls ?? []).map(url => `![screenshot](${url})`).join("\n") : "No screenshots"}
-    `,
+    `.trim(),
     labels: [`user:${res.userId}`, `type:${res.issueType?.toLowerCase()}`],
   });
   //
@@ -64,7 +64,7 @@ type IssueRequest = {
   body: string;
   userId: string;
   issueType: "bug" | "feature" | "feedback";
-  accountType?: "anonymous" | "logged-in";
+  accountType: "anonymous" | "logged-in";
   deviceId?: string;
   platform?: string;       // iOS | Android | Web | Desktop
   osVersion?: string;      // iOS 17.2 | Android 14 | Windows 11
