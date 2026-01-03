@@ -52,12 +52,8 @@ export async function POST(req: Request) {
     `.trim(),
     labels: [`user:${res.userId}`, `type:${res.issueType?.toLowerCase()}`],
   });
-  //
-  return NextResponse.json({
-    url: issue.data.html_url,
-    number: issue.data.number,
-    issue: issue.data,
-  });
+  // Return the whole issue object
+  return NextResponse.json(issue.data);
 }
 
 ///
