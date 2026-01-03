@@ -56,6 +56,7 @@ export async function POST(req: Request) {
   return NextResponse.json({
     url: issue.data.html_url,
     number: issue.data.number,
+    issue: issue.data,
   });
 }
 
