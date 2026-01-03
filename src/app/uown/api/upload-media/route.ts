@@ -4,6 +4,7 @@
 import { NextResponse } from "next/server";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { randomUUID } from "crypto";
+import { lookup } from "mime-types";
 
 ///
 export async function POST(req: Request) {
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
       Bucket: process.env.CLOUDFLARE_R2_UOWN_BUCKET!,
       Key: key,
       Body: buffer,
-      ContentType: file.type || "application/octet-stream",
+      ContentType: lookup(file.name) || "application/octet-stream",
       ContentDisposition: "inline", // No force download
     })
   );

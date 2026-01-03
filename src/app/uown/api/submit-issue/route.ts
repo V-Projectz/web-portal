@@ -3,6 +3,7 @@
  */
 import { App } from "@octokit/app";
 import { NextResponse } from "next/server";
+import { dedent } from "ts-dedent";
 
 ///
 export async function POST(req: Request) {
@@ -33,11 +34,12 @@ export async function POST(req: Request) {
     owner: process.env.UOWN_GITHUB_FEEDBACK_APP_OWNER!,
     repo: process.env.UOWN_GITHUB_FEEDBACK_APP_REPO!,
     title: `[${res.issueType?.toUpperCase()}]: ${res.title}`,
-    body: `
+    body: dedent`
       ## 🧑 User Info
       - **User ID:** ${res.userId}
       - **Account Type:** ${res.accountType || "anonymous"}
       - **Device ID:** ${res.deviceId || "unknown"}
+
       ## 📱 App Info
       - **Platform:** ${res.platform || "unknown"}
       - **OS Version:** ${res.osVersion || "unknown"}
@@ -45,11 +47,16 @@ export async function POST(req: Request) {
       - **Build Type:** ${res.buildType || "unknown"}
       - **Locale:** ${res.locale || "unknown"}
       - **Timezone:** ${res.timezone || "unknown"}
+
       ## 📝 Description
       ${res.body}
+      
       ## 📷 Screenshots / Images
-      ${(res.screenshotUrls ?? []).length > 0 ? (res.screenshotUrls ?? []).map(url => `![screenshot](${url})`).join("\n") : "No screenshots"}
-    `.trim(),
+      ${(res.screenshotUrls ?? []).length > 0
+        ? (res.screenshotUrls ?? []).map(url => `![screenshot](${url.startsWith("http") ? url : `https://${url}`})`).join("\n")
+        : "No screenshots"
+      }
+    `,
     labels: [`user:${res.userId}`, `type:${res.issueType?.toLowerCase()}`],
   });
   // Return the whole issue object
