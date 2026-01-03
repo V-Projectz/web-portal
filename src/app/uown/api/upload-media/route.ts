@@ -37,7 +37,8 @@ export async function POST(req: Request) {
       Bucket: process.env.CLOUDFLARE_R2_UOWN_BUCKET!,
       Key: key,
       Body: buffer,
-      ContentType: file.type,
+      ContentType: file.type || "application/octet-stream",
+      ContentDisposition: "inline", // No force download
     })
   );
   const publicUrl = `${process.env.CLOUDFLARE_R2_PUBLIC_URL}/${key}`;
