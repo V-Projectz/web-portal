@@ -5,7 +5,7 @@
 import {App} from "@octokit/app";
 import {NextResponse} from "next/server";
 
-/// GET /uown/api/get-issue?issueId=123
+/// GET /uown/api/get-issue?issueNumber=123
 export async function GET(req: Request) {
   // App key protection
   const appKey = req.headers.get("x-uown-app-key");
@@ -14,8 +14,8 @@ export async function GET(req: Request) {
   }
   // Query param
   const { searchParams } = new URL(req.url);
-  const issueId = searchParams.get("issueId");
-  if (!issueId) return NextResponse.json({ error: "Missing issueId" }, { status: 400 });
+  const issueNumber = searchParams.get("issueNumber");
+  if (!issueNumber) return NextResponse.json({ error: "Missing [issueNumber]" }, { status: 400 });
   // GitHub App
   const app = new App({
     appId: process.env.UOWN_GITHUB_FEEDBACK_APP_ID!,
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
     {
       owner: process.env.UOWN_GITHUB_FEEDBACK_APP_OWNER!,
       repo: process.env.UOWN_GITHUB_FEEDBACK_APP_REPO!,
-      issue_number: Number(issueId),
+      issue_number: Number(issueNumber),
     }
   );
   //
